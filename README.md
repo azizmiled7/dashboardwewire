@@ -1,66 +1,94 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# WeWire - Système de Gestion des Interventions
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 🚀 Lancer le projet (XAMPP)
 
-## About Laravel
+### ✅ Prérequis
+- XAMPP installé dans `C:\xampp`
+- Git (pour cloner)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📦 Installation depuis GitHub (première fois)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```cmd
+cd C:\xampp\htdocs
+git clone https://github.com/azizmiled7/dashboardwewire.git wewire
+cd wewire
+copy .env.example .env
+```
 
-## Learning Laravel
+Puis modifier `.env` :
+```
+DB_DATABASE=wewire1
+DB_USERNAME=root
+DB_PASSWORD=
+APP_URL=http://localhost:8080
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Installer les dépendances :
+```cmd
+composer install
+php artisan key:generate
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## ▶️ Lancer le projet (à chaque fois)
 
-## Laravel Sponsors
+### Méthode 1 — Double-clic sur le script
+> Exécuter le fichier **`start-wewire.bat`** à la racine du projet
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Méthode 2 — CMD manuellement
+```cmd
+REM 1. Démarrer MySQL
+C:\xampp\mysql\bin\mysqld.exe --console
 
-### Premium Partners
+REM 2. Démarrer Apache (autre terminal)
+C:\xampp\apache\bin\httpd.exe
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+REM 3. Ouvrir dans le navigateur
+start http://localhost:8080
+```
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🌐 URL du projet
+```
+http://localhost:8080
+```
 
-## Code of Conduct
+## 🔑 Compte par défaut
+| Email | Mot de passe | Rôle |
+|-------|-------------|------|
+| admin@wewire.com | password123 | Admin |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 📁 Structure principale
+```
+app/
+  Http/Controllers/
+    ChatController.php        ← Chat temps réel
+    DashboardController.php   ← Stats dashboard
+    InterventionController.php
+    MaterielController.php
+    UserController.php
+  Models/
+    User.php / Intervention.php / Materiel.php / Message.php
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+resources/views/
+    dashboardadmin.blade.php  ← Dashboard admin avec graphiques
+    dashboardtech.blade.php   ← Dashboard technicien
+    affectation.blade.php     ← Affectation interventions
+    contact.blade.php         ← Chat temps réel
+    create.blade.php          ← Déclarer intervention
+```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🗄️ Base de données
+```cmd
+C:\xampp\mysql\bin\mysql.exe -u root -e "CREATE DATABASE IF NOT EXISTS wewire1;"
+C:\xampp\php\php.exe artisan migrate
+C:\xampp\php\php.exe artisan db:seed
+```
